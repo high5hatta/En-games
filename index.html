@@ -6,12 +6,38 @@
     <title>ハイタッチ's Game Room 🍬</title>
     
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* 今回追加する新しいボタン用のグラデーションカラー */
+        
+        /* 🌿 会員アプリ用（エメラルドミント系グラデーション） */
+        .btn-member {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white; 
+            box-shadow: 0 6px 0 #0f8279, 0 10px 20px rgba(56, 239, 125, 0.3);
+        }
+        .btn-member:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #0f8279, 0 4px 10px rgba(56, 239, 125, 0.2);
+        }
+
+        /* 🍊 スタッフアプリ用（サンセットオレンジ系グラデーション） */
+        .btn-staff {
+            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+            color: white; 
+            box-shadow: 0 6px 0 #d97443, 0 10px 20px rgba(255, 94, 98, 0.3);
+        }
+        .btn-staff:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #d97443, 0 4px 10px rgba(255, 94, 98, 0.2);
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>縁 Game Room 🦄</h1>
-    <h2>みんなで集まったときに遊べる！<br>AIと一緒に作った自作ゲームのポータルサイト✨</h2>
+    <h1>En-games 🦄</h1>
+    <h2>みんなで遊べる自作ゲーム＆便利なWEBアプリが集合！<br>ハイタッチのポータルサイトへようこそ✨</h2>
 
     <a href="selfproduce/" class="app-link-btn btn-selfproduce">
         🃏 自己紹介カード
@@ -21,6 +47,16 @@
     <a href="sanrentan/" class="app-link-btn btn-sanrentan">
         🍬 サンレンタン パーティー版
         <span class="sub-text">30問の厳選お題！みんなで価値観を当てよう！</span>
+    </a>
+
+    <a href="https://stampcard-73c41.web.app" target="_blank" class="app-link-btn btn-member">
+        📱 会員アプリ
+        <span class="sub-text">スタンプカードをスマートに管理できるアプリ</span>
+    </a>
+
+    <a href="https://stampcard-73c41.web.app/staff/" target="_blank" class="app-link-btn btn-staff">
+        🛠️ スタッフアプリ
+        <span class="sub-text">店舗運営やスタンプ付与を行う管理用アプリ</span>
     </a>
     
     <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">Produced by ハイタッチ & AI Assistants 🤖</p>
