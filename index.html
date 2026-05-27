@@ -12,24 +12,49 @@
         
         /* 🌿 会員アプリ用（エメラルドミント系グラデーション） */
         .btn-member {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             color: white; 
-            box-shadow: 0 6px 0 #0f8279, 0 10px 20px rgba(56, 239, 125, 0.3);
+            box-shadow: 0 6px 0 #0d8a61, 0 10px 20px rgba(16, 185, 129, 0.3);
         }
         .btn-member:active {
             transform: translateY(6px);
-            box-shadow: 0 0px 0 #0f8279, 0 4px 10px rgba(56, 239, 125, 0.2);
+            box-shadow: 0 0px 0 #0d8a61, 0 4px 10px rgba(16, 185, 129, 0.2);
         }
 
         /* 🍊 スタッフアプリ用（サンセットオレンジ系グラデーション） */
         .btn-staff {
-            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
             color: white; 
-            box-shadow: 0 6px 0 #d97443, 0 10px 20px rgba(255, 94, 98, 0.3);
+            box-shadow: 0 6px 0 #4346c7, 0 10px 20px rgba(99, 102, 241, 0.3);
         }
         .btn-staff:active {
             transform: translateY(6px);
-            box-shadow: 0 0px 0 #d97443, 0 4px 10px rgba(255, 94, 98, 0.2);
+            box-shadow: 0 0px 0 #4346c7, 0 4px 10px rgba(99, 102, 241, 0.2);
+        }
+
+        /* 💡 新設：QRコード表示用のかわいいホワイトボックス */
+        .qr-section {
+            margin-top: 35px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px dashed #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+        }
+        .qr-section h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .qr-code-img {
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: inline-block;
+            width: 130px;
+            height: 130px;
         }
     </style>
 </head>
@@ -59,8 +84,24 @@
         <span class="sub-text">店舗運営やスタンプ付与を行う管理用アプリ</span>
     </a>
     
+    <div class="qr-section">
+        <h3>📢 このお部屋をみんなにシェア！</h3>
+        <img id="qr-image" class="qr-code-img" src="" alt="QRコード">
+        <p style="font-size: 11px; color: #94a3b8; margin: 8px 0 0 0;">スマホのカメラで読み取ってね 📷</p>
+    </div>
+    
     <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">Produced by ハイタッチ & AI Assistants 🤖</p>
 </div>
+
+<script>
+    // 💡 賢く現在のサイトURL（En-gamesのURL）を自動で読み取ってQRコードを作成するプログラム
+    window.addEventListener('DOMContentLoaded', () => {
+        const currentUrl = window.location.href;
+        const qrImg = document.getElementById('qr-image');
+        // 無料のQR生成APIを利用して、今開いているURLのQRコードをドッキング！
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+    });
+</script>
 
 </body>
 </html>
