@@ -1,9 +1,13 @@
-/* style.css (全アプリ共通デザイン) */
+/* style.css (縁会部公式カラーシステム対応版 - パステル＆ぷっくりCute) */
 
-/* 1. 背景のグラデーション（世界観の統一） */
+/* 1. 全体の背景：深淵のサイエンスの奥深さに、パステルの光が差し込むイメージ */
 body { 
-    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif; 
-    background: linear-gradient(135deg, #ffe5ec 0%, #e8f0fe 50%, #eafaf1 100%); 
+    font-family: 'Plus Jakarta Sans', 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif; 
+    background-color: #05070f;
+    /* 🎨 縁会部公式のグラデーションのニュアンスを可愛くアレンジ */
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.12) 0, transparent 50%);
     color: #4a5568; 
     margin: 0; 
     padding: 20px; 
@@ -14,35 +18,41 @@ body {
     box-sizing: border-box;
 }
 
-/* 2. メインの白いコンテナカード */
+/* 2. メインの白いコンテナカード：曇りガラスのような透明感で背景をふんわり透かす */
 .container { 
     max-width: 480px; 
     width: 100%; 
-    background: rgba(255, 255, 255, 0.95); 
+    background: rgba(255, 255, 255, 0.93); 
     padding: 40px 25px; 
-    border-radius: 24px; 
-    box-shadow: 0 10px 30px rgba(229, 150, 168, 0.15); 
+    border-radius: 28px; 
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15); 
     text-align: center; 
     border: 3px solid #ffffff;
+    backdrop-blur-md: 10px;
 }
 
-/* 3. タイトルの文字スタイル */
+/* 3. タイトルの文字スタイル：夕暮れのアペロと共鳴ネオンのきらめき */
 h1 { 
-    color: #ff5c8a; 
+    color: #f43f5e; /* 🌅 尾道の夕陽カラー */
+    background: linear-gradient(135deg, #f43f5e 0%, #6366f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 28px; 
     margin-top: 0;
-    margin-bottom: 15px; 
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    margin-bottom: 12px; 
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 h2 { 
-    font-size: 16px; 
+    font-size: 15px; 
     color: #64748b; 
     margin-bottom: 30px; 
     line-height: 1.6;
+    font-weight: 500;
 }
 
-/* 4. リンクボタンの共通スタイル（ぷっくり立体感） */
+/* 4. リンクボタンの共通スタイル（ぷっくりマカロンのような立体感） */
 .app-link-btn { 
     display: block;
     text-decoration: none;
@@ -50,37 +60,65 @@ h2 {
     font-size: 18px; 
     border-radius: 20px; 
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     transition: all 0.1s ease;
     box-sizing: border-box;
 }
 
-/* 💜 自己紹介カード用（パープル・ピンク系グラデーション） */
+/* 💜 1. 自己紹介カード用：【祝祭のフェス】パレット */
+/* 真夜中のDJブース(#3B0764)からオーディエンス・マゼンタ(#D946EF)へ弾ける可愛さ */
 .btn-selfproduce {
-    background: linear-gradient(135deg, #b19ffb 0%, #ff758f 100%);
+    background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
     color: white; 
-    box-shadow: 0 6px 0 #8b73df, 0 10px 20px rgba(177, 159, 251, 0.3);
+    box-shadow: 0 6px 0 #8b3dc7, 0 10px 20px rgba(217, 70, 239, 0.3);
 }
 .btn-selfproduce:active {
     transform: translateY(6px);
-    box-shadow: 0 0px 0 #8b73df, 0 4px 10px rgba(177, 159, 251, 0.2);
+    box-shadow: 0 0px 0 #8b3dc7, 0 4px 10px rgba(217, 70, 239, 0.2);
 }
 
-/* 🍬 サンレンタン用（ブルー・シアン系グラデーション） */
+/* 🍬 2. サンレンタン用：【夕暮れのアペロ】パレット */
+/* 完熟アペロ(#831843)に尾道の夕陽(#F43F5E)と0.1の火花(#FDE047)を混ぜたパステルオレンジピンク */
 .btn-sanrentan {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #f43f5e 0%, #ff85a2 100%);
     color: white; 
-    box-shadow: 0 6px 0 #00b4d8, 0 10px 20px rgba(0, 242, 254, 0.3);
+    box-shadow: 0 6px 0 #c92a45, 0 10px 20px rgba(244, 63, 94, 0.3);
 }
 .btn-sanrentan:active {
     transform: translateY(6px);
-    box-shadow: 0 0px 0 #00b4d8, 0 4px 10px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0px 0 #c92a45, 0 4px 10px rgba(244, 63, 94, 0.2);
 }
 
+/* 🌿 3. 会員アプリ用：【芽吹きの土壌】パレット */
+/* 0.1の若葉(#10B981)と黄金のひらめき(#FBBF24)がハモる、優しいPACミントカラー */
+.btn-member {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white; 
+    box-shadow: 0 6px 0 #0d8a61, 0 10px 20px rgba(16, 185, 129, 0.3);
+}
+.btn-member:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #0d8a61, 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+/* 🍊 4. スタッフアプリ用：【深淵のサイエンス】パレット */
+/* ロジック・ブルー(#1E40AF)に共鳴ネオン(#6366f1)とAIの閃き(#38bdf8)を足したサイバーかわいいシアンブルー */
+.btn-staff {
+    background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
+    color: white; 
+    box-shadow: 0 6px 0 #4346c7, 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+.btn-staff:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #4346c7, 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+
+/* ボタンの中の説明文（白文字がふんわり透けるかわいさ） */
 .sub-text {
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.88);
     margin-top: 5px;
+    letter-spacing: 0.5px;
 }
