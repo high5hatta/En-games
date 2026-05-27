@@ -1,0 +1,86 @@
+/* style.css (全アプリ共通デザイン) */
+
+/* 1. 背景のグラデーション（世界観の統一） */
+body { 
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif; 
+    background: linear-gradient(135deg, #ffe5ec 0%, #e8f0fe 50%, #eafaf1 100%); 
+    color: #4a5568; 
+    margin: 0; 
+    padding: 20px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* 2. メインの白いコンテナカード */
+.container { 
+    max-width: 480px; 
+    width: 100%; 
+    background: rgba(255, 255, 255, 0.95); 
+    padding: 40px 25px; 
+    border-radius: 24px; 
+    box-shadow: 0 10px 30px rgba(229, 150, 168, 0.15); 
+    text-align: center; 
+    border: 3px solid #ffffff;
+}
+
+/* 3. タイトルの文字スタイル */
+h1 { 
+    color: #ff5c8a; 
+    font-size: 28px; 
+    margin-top: 0;
+    margin-bottom: 15px; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+h2 { 
+    font-size: 16px; 
+    color: #64748b; 
+    margin-bottom: 30px; 
+    line-height: 1.6;
+}
+
+/* 4. リンクボタンの共通スタイル（ぷっくり立体感） */
+.app-link-btn { 
+    display: block;
+    text-decoration: none;
+    padding: 20px; 
+    font-size: 18px; 
+    border-radius: 20px; 
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: all 0.1s ease;
+    box-sizing: border-box;
+}
+
+/* 💜 自己紹介カード用（パープル・ピンク系グラデーション） */
+.btn-selfproduce {
+    background: linear-gradient(135deg, #b19ffb 0%, #ff758f 100%);
+    color: white; 
+    box-shadow: 0 6px 0 #8b73df, 0 10px 20px rgba(177, 159, 251, 0.3);
+}
+.btn-selfproduce:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #8b73df, 0 4px 10px rgba(177, 159, 251, 0.2);
+}
+
+/* 🍬 サンレンタン用（ブルー・シアン系グラデーション） */
+.btn-sanrentan {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white; 
+    box-shadow: 0 6px 0 #00b4d8, 0 10px 20px rgba(0, 242, 254, 0.3);
+}
+.btn-sanrentan:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #00b4d8, 0 4px 10px rgba(0, 242, 254, 0.2);
+}
+
+.sub-text {
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 5px;
+}
