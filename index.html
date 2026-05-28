@@ -3,648 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サンレンタン パーティー版</title>
+    <title>ハイタッチ's Game Room 🍬</title>
+    
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        body { 
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif; 
-            background: linear-gradient(135deg, #ffe5ec 0%, #e8f0fe 50%, #eafaf1 100%); 
-            color: #4a5568; 
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .container { 
-            max-width: 480px; 
-            width: 100%; 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 30px 20px; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(229, 150, 168, 0.15); 
-            text-align: center; 
-            border: 3px solid #ffffff;
-        }
-        h1 { 
-            color: #ff5c8a; 
-            font-size: 26px; 
-            margin-top: 0;
-            margin-bottom: 10px; 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-        h2 { font-size: 18px; color: #64748b; margin-bottom: 15px; line-height: 1.4; }
-        p { font-size: 14px; color: #64748b; line-height: 1.6; }
-        .odai { 
-            background: linear-gradient(135deg, #fff0f3 0%, #ffe5ec 100%); 
-            padding: 20px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            font-size: 18px; 
-            margin-bottom: 25px; 
-            border: 2px dashed #ffb3c6;
-            color: #ff477e;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .btn-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
-        .option-btn { 
-            padding: 14px 20px; 
-            font-size: 16px; 
-            background: #ffffff; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 16px; 
-            cursor: pointer; 
-            text-align: left; 
-            position: relative; 
-            font-weight: bold;
-            color: #4a5568;
-            box-shadow: 0 4px 0 #e2e8f0;
-            transition: all 0.1s ease;
-        }
-        .option-btn:active { transform: translateY(4px); box-shadow: 0 0px 0 #e2e8f0; }
-        .option-btn.selected { 
-            background: linear-gradient(135deg, #ff758f 0%, #ff477e 100%); 
-            color: white; 
-            border-color: #ff477e;
-            box-shadow: 0 4px 0 #c9184a;
-        }
-        .option-btn.selected:active { transform: translateY(4px); box-shadow: 0 0px 0 #c9184a; }
-        .badge { 
-            position: absolute; right: 15px; top: 50%; transform: translateY(-50%); 
-            background: white; color: #ff477e; border-radius: 50%; 
-            width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; 
-            font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .main-btn { 
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white; border: none; padding: 16px 32px; font-size: 18px; border-radius: 50px; 
-            cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; 
-            box-shadow: 0 5px 0 #00b4d8, 0 8px 15px rgba(0, 242, 254, 0.3);
-            transition: all 0.1s ease;
-        }
-        .main-btn:active { transform: translateY(5px); box-shadow: 0 0px 0 #00b4d8; }
-        .main-btn:disabled { background: #cbd5e1 !important; box-shadow: 0 5px 0 #94a3b8 !important; cursor: not-allowed; transform: none !important; }
-        .sub-btn { 
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            box-shadow: 0 5px 0 #f3a6b4, 0 8px 15px rgba(254, 207, 239, 0.4);
-        }
-        .sub-btn:active { box-shadow: 0 0px 0 #f3a6b4; }
-        .screen { display: none; }
-        .screen.active { display: block; }
-        .room-number { 
-            font-size: 46px; font-weight: bold; color: #ff477e; letter-spacing: 5px; margin: 20px 0; 
-            background: #fff0f3; padding: 15px; border-radius: 20px; border: 2px solid #ffccd5;
-            display: inline-block; padding-left: 20px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .input-box { width: 85%; padding: 14px; font-size: 18px; text-align: center; border: 2px solid #cbd5e1; border-radius: 50px; margin-bottom: 15px; outline: none; transition: all 0.2s; color: #4a5568; }
-        .input-box:focus { border-color: #ff758f; box-shadow: 0 0 0 4px rgba(255, 117, 143, 0.15); }
-        .status-text { color: #94a3b8; font-style: italic; margin-top: 15px; font-size: 14px; }
-        .result-box { text-align: left; background: #f8fafc; padding: 18px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #f1f5f9; }
-        .result-box h3 { margin-top: 0; color: #64748b; font-size: 15px; margin-bottom: 10px; }
-        .member-list { background: #f8fafc; padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; min-height: 50px; border: 1px dashed #cbd5e1; }
-        .member-item { display: inline-block; background: white; padding: 6px 14px; border-radius: 50px; margin: 5px; border: 1px solid #e2e8f0; font-size: 14px; font-weight: bold; color: #64748b; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
-        .score-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0; font-size: 15px; }
-        .score-row:last-child { border-bottom: none; }
-        .rank-1 { font-weight: bold; color: #ff477e; background-color: #fff0f3; border-radius: 10px; padding: 4px 8px; margin: 0 -8px; }
-        .notice-box { background-color: #f0fdf4; border: 2px solid #bbf7d0; color: #166534; padding: 12px; border-radius: 16px; font-weight: bold; margin-bottom: 15px; font-size: 14px; }
-        .host-notice { background-color: #eff6ff; border: 2px solid #bfdbfe; color: #1e40af; }
+        /* 今回追加する新しいボタン用のグラデーションカラー */
         
-        /* 💡 新設：ゲーム中いつでも確認できる配点表のスタイル */
-        .rule-table-box {
-            margin-top: 20px;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 12px;
-            font-size: 11px;
-            text-align: left;
+        /* 🌿 会員アプリ用（エメラルドミント系グラデーション） */
+        .btn-member {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white; 
+            box-shadow: 0 6px 0 #0d8a61, 0 10px 20px rgba(16, 185, 129, 0.3);
         }
-        .rule-table-box h4 { margin: 0 0 8px 0; color: #64748b; text-align: center; font-size: 12px; }
-        .rule-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #e2e8f0; color: #4a5568; }
-        .rule-row:last-child { border-bottom: none; }
+        .btn-member:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #0d8a61, 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        /* 🍊 スタッフアプリ用（サンセットオレンジ系グラデーション） */
+        .btn-staff {
+            background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
+            color: white; 
+            box-shadow: 0 6px 0 #4346c7, 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        .btn-staff:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #4346c7, 0 4px 10px rgba(99, 102, 241, 0.2);
+        }
+
+        /* 💡 新設：QRコード表示用のかわいいホワイトボックス */
+        .qr-section {
+            margin-top: 35px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px dashed #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+        }
+        .qr-section h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .qr-code-img {
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: inline-block;
+            width: 130px;
+            height: 130px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="screen-mode" class="screen active">
-        <h1>サンレンタン 🍬</h1>
-        <h2>1人につき3問ずつ連続で出題を担当！<br>新・激ゆる得点ルール搭載版 🌟</h2>
-        <button class="main-btn" id="btn-show-create">部屋を作る</button>
-        <button class="main-btn sub-btn" id="btn-show-join">部屋に入る</button>
+    <h1>En-games 🦄</h1>
+    <h2>みんなで遊べる自作ゲーム＆便利なWEBアプリが集合！<br>ハイタッチのポータルサイトへようこそ✨</h2>
+
+    <a href="selfproduce/" class="app-link-btn btn-selfproduce">
+        🃏 自己紹介カード
+        <span class="sub-text">カードをめくって楽しくお互いを知ろう！</span>
+    </a>
+
+    <a href="sanrentan/" class="app-link-btn btn-sanrentan">
+        🍬 サンレンタン パーティー版
+        <span class="sub-text">30問の厳選お題！みんなで価値観を当てよう！</span>
+    </a>
+
+    <a href="https://stampcard-73c41.web.app" target="_blank" class="app-link-btn btn-member">
+        📱 縁会員アプリ
+        <span class="sub-text">会員登録とスタンプカード</span>
+    </a>
+
+    <a href="https://stampcard-73c41.web.app/staff/" target="_blank" class="app-link-btn btn-staff">
+        🛠️ スタッフ用アプリ
+        <span class="sub-text">スタンプを押しましょう</span>
+    </a>
+    
+    <div class="qr-section">
+        <h3>📢 このお部屋をみんなにシェア！</h3>
+        <img id="qr-image" class="qr-code-img" src="" alt="QRコード">
+        <p style="font-size: 11px; color: #94a3b8; margin: 8px 0 0 0;">スマホのカメラで読み取ってね 📷</p>
     </div>
-
-    <div id="screen-host-name" class="screen">
-        <h2>部屋を作成する 👑</h2>
-        <input type="text" id="input-host-name" class="input-box" placeholder="あなたのニックネーム">
-        <button class="main-btn" id="btn-create-room">部屋を作成！</button>
-    </div>
-
-    <div id="screen-host-wait" class="screen">
-        <h2>部屋を作成しました ✨</h2>
-        <p>メンバーに下の4桁の数字を伝えてね：</p>
-        <div class="room-number" id="display-room-id">----</div>
-        <h3>🎀 参加メンバー 🎀</h3>
-        <div class="member-list" id="host-member-list"></div>
-        <button class="main-btn" id="start-game-btn" disabled>全員揃ったのでゲーム開始！</button>
-    </div>
-
-    <div id="screen-guest-join" class="screen">
-        <h2>部屋に参加する 🦄</h2>
-        <input type="number" id="input-room-id" class="input-box" placeholder="4桁の部屋番号">
-        <input type="text" id="input-guest-name" class="input-box" placeholder="あなたのニックネーム">
-        <button class="main-btn" id="btn-join-room">参加する</button>
-        <p class="status-text" id="guest-status"></p>
-    </div>
-
-    <div id="screen-guest-wait" class="screen">
-        <h2>部屋に参加しました！ 🌟</h2>
-        <p>出題者がゲームを開始するまで、ドキドキしながら待っててね。</p>
-        <h3>🎀 参加中のメンバー 🎀</h3>
-        <div class="member-list" id="guest-member-list"></div>
-    </div>
-
-    <div id="screen-questioner" class="screen">
-        <h2>出題者の番 🔮（第 <span class="current-round-txt">1</span> 問 / 全<span id="total-rounds-txt">3</span>問）</h2>
-        <div class="notice-box">📢 あなたが今の「お題」の出題者です！</div>
-        <div class="odai" id="q-odai"></div>
-        <div class="btn-list" id="q-options"></div>
-        <button class="main-btn" id="q-send-btn" disabled>回答を送信する</button>
-    </div>
-
-    <div id="screen-answerer" class="screen">
-        <h2>回答者の番 🕵️‍♀️（第 <span class="current-round-txt">1</span> 問 / 全<span id="total-rounds-txt2">3</span>問）</h2>
-        <div id="wait-for-host-msg">
-            <div class="notice-box host-notice">👤 今の出題者: <span id="current-host-name-txt">--</span>さん</div>
-            <div class="odai" id="wait-odai-title">お題</div>
-            <p class="status-text" style="color:#ff5c8a; font-weight:bold; font-size:16px;">⚡ 出題者が考え中だよ！誰が選ばれそうか予想して待っててね！</p>
-        </div>
-        <div id="action-for-guest" style="display:none;">
-            <div class="notice-box host-notice">🎯 出題者 【<span id="current-host-name-txt2">--</span>さん】 の好みを当てよう！</div>
-            <div class="odai" id="a-odai"></div>
-            <div class="btn-list" id="a-options"></div>
-            <button class="main-btn" id="a-send-btn" disabled>予想を送信する</button>
-        </div>
-
-        <div class="rule-table-box">
-            <h4>📊 どんな時になに点もらえる？</h4>
-            <div class="rule-row"><span>🥇 3つとも種類も順番もドンピシャ！</span><span style="color:#ff477e; font-weight:bold;">6点</span></div>
-            <div class="rule-row"><span>🥈 順番バラバラだけど3種類とも的中！</span><span style="color:#ff477e; font-weight:bold;">4点</span></div>
-            <div class="rule-row"><span>🥉 1位と2位を順番通りにズバリ的中！</span><span style="color:#ff477e; font-weight:bold;">3点</span></div>
-            <div class="rule-row"><span>⭐ 順番関係なく、ベスト3のうち2つ一致！</span><span style="color:#ff477e; font-weight:bold;">2点</span></div>
-            <div class="rule-row"><span>🌱 順番関係なく、ベスト3のうち1つだけ一致！</span><span style="color:#ff477e; font-weight:bold;">1点</span></div>
-        </div>
-    </div>
-
-    <div id="screen-round-waiting" class="screen">
-        <h2>みんなの回答を待っています 💭</h2>
-        <p class="status-text">全員が送信すると自動的に結果発表に進むよ！</p>
-        <div class="member-list" id="waiting-member-list"></div>
-    </div>
-
-    <div id="screen-result" class="screen">
-        <h2>第 <span class="current-round-txt">1</span> 問 結果発表 🎉</h2>
-        <div class="notice-box" id="next-host-notice" style="display:none;">🔄 次の問題へ進みます！</div>
-        <div class="result-box">
-            <h3>🎯 <span id="result-host-name-txt">--</span>さんのホンネ</h3>
-            <p id="q-ans-text" style="font-weight: bold; color: #ff477e; font-size: 16px; margin: 0;"></p>
-        </div>
-        <h3>🏅 現在の総合ポイント 🏅</h3>
-        <div class="result-box" id="round-scores-list"></div>
-        
-        <button class="main-btn" id="next-round-btn" style="display:none;">次の問題へ進む ➔</button>
-        <p class="status-text" id="guest-next-wait-text" style="display:none;">部屋の作成者が次の問題に進めるのを待っています...</p>
-
-        <div class="rule-table-box">
-            <h4>📊 得点ルール表</h4>
-            <div class="rule-row"><span>🥇 3つとも全的中（三連単）</span><span style="font-weight:bold;">6点</span></div>
-            <div class="rule-row"><span>🥈 3つ種類が的中（三連複）</span><span style="font-weight:bold;">4点</span></div>
-            <div class="rule-row"><span>🥉 1位2位が的中（二連単）</span><span style="font-weight:bold;">3点</span></div>
-            <div class="rule-row"><span>⭐ どれか2つ一致</span><span style="font-weight:bold;">2点</span></div>
-            <div class="rule-row"><span>🌱 どれか1つだけ一致</span><span style="font-weight:bold;">1点</span></div>
-        </div>
-    </div>
-
-    <div id="screen-gameover" class="screen">
-        <h1>🏆 最終結果発表 🏆</h1>
-        <h2>すべての問題が終了しました！<br>いちばんみんなの価値観を分かっていたのは誰かな？</h2>
-        <div class="result-box" id="final-rankings-list" style="font-size: 18px;"></div>
-        <button class="main-btn" id="btn-reload">トップに戻る</button>
-    </div>
+    
+    <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">Produced by ハイタッチ & AI Assistants 🤖</p>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-    import { firebaseConfig } from "./config.js";
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const database = [
-        { title: "お弁当のおかずで入っていたら一番嬉しいのは？", options: ["から揚げ", "ハンバーグ", "卵焼き", "ウインナー", "エビフライ", "ポテトサラダ", "鮭の塩焼き"] },
-        { title: "もし無人島に1つだけ持っていけるなら？", options: ["サバイバルナイフ", "ライター", "寝袋", "釣り竿", "大きなテント", "スマホ（電波なし）", "相棒の犬"] },
-        { title: "タイムマシンがあったら一番行きたい時代は？", options: ["恐竜の時代", "江戸時代", "戦国時代", "昭和レトロ", "100年後の未来", "1000年後の未来", "自分の子供時代"] },
-        { title: "一番好きなラーメンの味は？", options: ["醤油ラーメン", "味噌ラーメン", "塩ラーメン", "豚骨ラーメン", "家系ラーメン", "担々麺", "つけ麺"] },
-        { title: "映画館で食べるならどれ？", options: ["ポップコーン塩", "ポップコーンキャラメル", "ホットドッグ", "フライドポテト", "チュロス", "アイスクリーム", "何も食べない"] },
-        { title: "一生、これしか食べられないとしたらどれにする？", options: ["焼肉", "お寿司", "ラーメン", "カレーライス", "白いごはんと味噌汁", "ハンバーガー", "高級スイーツ"] },
-        { title: "超能力が1つだけ手に入るならどれが良い？", options: ["空を飛ぶ能力", "透明人間になる能力", "人の心が読める能力", "時間を5秒だけ戻す能力", "瞬間移動できる能力", "動物と話せる能力", "絶対に病気にならない能力"] },
-        { title: "朝起きたら突然、何になっていたら一番マシ？", options: ["猫", "大型犬", "鳥", "深海の魚", "競走馬", "ライオン", "今のまま（ただの遅刻）"] },
-        { title: "一番ストレス解消になることはどれ？", options: ["とにかく寝る", "美味しいものをドカ食い", "カラオケで大声を出す", "旅行に出かける", "買い物をしまくる", "サウナや温泉で汗を流す", "部屋を大掃除する"] },
-        { title: "宝くじで3億円当たったら、まず最初にやりたいことは？", options: ["会社や学校を辞める", "高級車や家を買う", "世界一周旅行に行く", "全額そのまま貯金する", "親や家族にプレゼントする", "美味しい高級料理を食べに行く", "投資に回す"] },
-        { title: "恋人や親友を選ぶとき、一番重視するポイントは？", options: ["笑いのツボが同じか", "食の好みが合うか", "顔や見た目の好み", "経済力やステータス", "趣味や価値観の一致", "優しさと気遣い", "お互い干渉しない距離感"] },
-        { title: "マクドナルドのサイドメニュー、ポテト以外ならどれ？", options: ["チキンマックナゲット", "サイドサラダ", "シャカチキ", "えだまめコーン", "ヨーグルト", "ホットアップルパイ", "何も頼まない"] },
-        { title: "明日世界が滅びるとしたら、最後に食べたいものは？", options: ["お母さんの手料理", "最高級の贅沢ディナー", "いつものお気に入りジャンクフード", "大好物のスイーツ山盛り", "炊きたてのお米とお味噌汁", "大好物の高級肉ステーキ", "喉を通らないので何もいらない"] },
-        { title: "自分が前世でなっていそうなのはどれ？", options: ["由緒正しき貴族・王族", "勇敢な戦国武将・騎士", "自然を愛する旅人・吟遊詩人", "大富豪の豪商", "どこかの可愛いペット", "歴史に残る偉大な芸術家", "ごく普通の一般市民"] },
-        { title: "人生で一番「お金をかけて良かった」と思う趣味は？", options: ["旅行・アウトドア", "ゲーム・アニメ・漫画", "音楽ライブ・映画鑑賞", "美味しいお店での食べ歩き", "ファッション・コスメ", "美容・筋トレ・サウナ", "車・バイク・ガジェット"] },
-        { title: "1日だけ別の職業を体験できるならどれ？", options: ["大人気YouTuber・配信者", "世界的に有名なロックスター", "敏腕の天才探偵・弁護士", "宇宙飛行士", "プロの料理人・パティシエ", "大ヒット作を生み出す映画監督", "のんびり暮らす個人書店の店主"] },
-        { title: "家の中で、一番落ち着くお気に入りの場所はどこ？", options: ["ふかふかのベッドの上", "リビングのソファの上", "お風呂の中", "自分のデスク・作業スペース", "トイレの中", "ベランダやお庭", "キッチン（料理中など）"] },
-        { title: "ドラえもんのひみつ道具、1つだけ一生貰えるなら？", options: ["どこでもドア", "タケコプター", "タイムふろしき", "もしもボックス", "アンキパン", "ほん訳コンニャク", "四次元ポケット（中身空っぽ）"] },
-        { title: "初対面の人と話すとき、一番最初に見る・気になる部分は？", options: ["全体の雰囲気・清潔感", "目や表情の明るさ", "声のトーンや話し方", "服装や靴のセンス", "髪型やメイク", "姿勢や立ち振る舞い", "使っているスマホや持ち物"] },
-        { title: "自分が一番「ズボラ（めんどくさがり）だな」と思う瞬間は？", options: ["服を脱ぎっぱなしにする", "靴下が丸まったまま洗濯に回す", "部屋の掃除を限界までサボる", "連絡の返信を既読のまま放置する", "ご飯を全部ウーバーか惣菜にする", "休日は一歩もベッドから出ない", "お風呂に入るのをギリギリまで粘る"] },
-        { title: "デスゲームに参加させられた！自分の生存戦略はどれ？", options: ["圧倒的武力で無双する", "頭脳を駆使して心理戦で勝つ", "強い人にペコペコして寄生する", "誰とも関わらずに隠れ続ける", "みんなと協力して奇跡を起こす", "ゲームマスターの裏をかく", "諦めて最初のステージで脱落する"] },
-        { title: "旅行に行くとき、一番楽しいと感じる瞬間は？", options: ["数日前から計画を立てている時", "移動中の新幹線や飛行機の中", "ホテルの部屋にチェックインした瞬間", "ご当地の美味しい名物を食べている時", "有名な観光地を巡っている時", "お土産を選んで買っている時", "家に帰ってきて布団に倒れ込んだ時"] },
-        { title: "コンビニでつい「予定にないのに」買っちゃうものは？", options: ["レジ横のチキンや肉まん", "新作のスイーツ・アイス", "新作のポテトチップス・スナック", "限定パッケージの缶コーヒー・お茶", "1本買うともう1本貰える系のジュース", "漫画や雑誌", "ガムやグミ、ミントタブレット"] },
-        { title: "自分がゾンビ映画の世界に入ったら、どこに立てこもる？", options: ["食料が豊富な大型ショッピングモール", "要塞のような頑丈な警察署・自衛隊基地", "ゾンビが来なさそうな大自然の山奥", "鍵をガチガチに閉めた自分の部屋", "海の上に浮かぶ豪華客船", "学校の屋上", "立てこもらずに車で走り続ける"] },
-        { title: "「大人になったなぁ」としみじみ感じる瞬間は？", options: ["お年玉をあげる側になった時", "ブラックコーヒーやビールが美味い時", "量より質の高い美味しいご飯を選ぶ時", "徹夜すると次の日丸ごと潰れる時", "税金や保険の話が理解できる時", "子供の頃に高かったおもちゃを大人買いした時", "実家の親の健康が気になり出した時"] },
-        { title: "遊園地・テーマパークで一番最初に行きたいジャンルは？", options: ["絶叫マウンテン・ジェットコースター", "お化け屋敷・ホラーハウス", "のんびり乗れる観覧車やメリーゴーランド", "プロジェクションマッピングなどの映像アトラクション", "可愛いキャラクターのパレード鑑賞", "パーク限定のかわいいフードの食べ歩き", "限定グッズショップでお買い物"] },
-        { title: "友達とカラオケに行ったら、まず最初に何をする？", options: ["とりあえず1曲目に定番の盛り上がる曲を入れる", "ドリンクバーを速攻で取りに行く", "他の人が歌うのを手拍子で盛り上げる", "デンモク（選曲画面）をじっくり眺める", "とりあえずウケ狙いのネタ曲を入れる", "誰も知らないマニアックな曲で様子見する", "緊張するので絶対に前半は歌わない"] },
-        { title: "夏休みの宿題、学生時代のあなたはどのタイプだった？", options: ["最初の1週間で全て終わらせる超計画派", "毎日コツコツ均等に進める優等生派", "お盆休みあたりから焦って始める普通派", "最後の3日間で徹夜して泣きながらやるギリギリ派", "始業式の朝に友達のノートを写すちゃっかり派", "そもそも提出を諦めて怒られるまで出さない居直り派", "自由研究だけガチでやるこだわり派"] },
-        { title: "これがあったらQOL（生活の質）が爆上がりする家電は？", options: ["全自動ドラム式洗濯乾燥機", "お掃除ロボット（ルンバなど）", "全自動食洗機", "最新の超大型スマートテレビ", "最高級の多機能電子レンジ", "髪がサラサラになる高級ドライヤー", "挽きたてが飲める全自動コーヒーメーカー"] },
-        { title: "もし自分が歴史上の有名な偉人になれるなら誰？", options: ["誰もが知る偉大な天才「織田信長」", "天才発明家・芸術家「レオナルド・ダ・ヴィンチ」", "天下統一を成し遂げたカリスマ「アレクサンダー大王」", "悲劇の絶世の美女「マリー・アントワネット」", "幕末を駆け抜けた風雲児「坂本龍馬」", "相対性理論を発見した物理学者「アインシュタイン」", "教科書に1行だけ載っているマイナーな王様"] }
-    ];
-
-    let myRole = ""; 
-    let roomNum = ""; 
-    let myName = "";
-    let currentData = {};
-    let mySelection = [];
-    let isListening = false;
-    let currentRoundIndex = 0; 
-    let memberNamesArray = []; 
-    let totalRounds = 3;       
-
-    function changeScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
-    }
-
-    function showCreateScreen() { changeScreen('screen-host-name'); }
-    function showJoinScreen() { changeScreen('screen-guest-join'); }
-
-    function createRoom() {
-        myRole = "host";
-        myName = document.getElementById('input-host-name').value.trim();
-        if(!myName) return alert("ニックネームを入力してください");
-
-        roomNum = String(Math.floor(1000 + Math.random() * 9000));
-        document.getElementById('display-room-id').innerText = roomNum;
-        changeScreen('screen-host-wait');
-
-        let indices = [];
-        while(indices.length < 30) {
-            let r = Math.floor(Math.random() * database.length);
-            if(!indices.includes(r)) indices.push(r);
-        }
-
-        let initialPlayers = {};
-        initialPlayers[myName] = {
-            name: myName,
-            selection: "",
-            roundScore: 0,
-            totalScore: 0,
-            isSubmitted: false,
-            isHostUser: true
-        };
-
-        set(ref(db, 'rooms/' + roomNum), {
-            status: 'waiting',
-            currentRound: 0,
-            odaiList: indices,
-            hostSelection: "",
-            currentHostName: myName, 
-            guests: initialPlayers
-        });
-        listenRoom();
-    }
-
-    function joinRoom() {
-        myRole = "guest";
-        roomNum = document.getElementById('input-room-id').value;
-        myName = document.getElementById('input-guest-name').value.trim();
-        if (!roomNum || !myName) return alert("部屋番号とニックネームを入力してください");
-
-        document.getElementById('guest-status').innerText = "接続中...";
-        
-        const roomRef = ref(db, 'rooms/' + roomNum);
-        onValue(roomRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                if(data.status !== 'waiting') {
-                    document.getElementById('guest-status').innerText = "その部屋は既にゲームが始まっています。";
-                    return;
-                }
-                set(ref(db, `rooms/${roomNum}/guests/${myName}`), {
-                    name: myName,
-                    selection: "",
-                    roundScore: 0,
-                    totalScore: 0,
-                    isSubmitted: false,
-                    isHostUser: false
-                }).then(() => {
-                    changeScreen('screen-guest-wait');
-                    if(!isListening) listenRoom();
-                });
-            } else {
-                document.getElementById('guest-status').innerText = "部屋が見つかりません。";
-            }
-        }, { onlyOnce: true });
-    }
-
-    function startGame() {
-        update(ref(db, 'rooms/' + roomNum), { status: 'host_selecting' });
-    }
-
-    function listenRoom() {
-        isListening = true;
-        const roomRef = ref(db, 'rooms/' + roomNum);
-        onValue(roomRef, (snapshot) => {
-            const data = snapshot.val();
-            if (!data) return;
-
-            const roundIndex = data.currentRound;
-            currentRoundIndex = roundIndex; 
-            
-            const odaiIndex = data.odaiList[roundIndex];
-            currentData = database[odaiIndex];
-            
-            memberNamesArray = Object.keys(data.guests).sort();
-            
-            totalRounds = memberNamesArray.length * 3;
-            document.querySelectorAll('#total-rounds-txt').forEach(el => el.innerText = totalRounds);
-            document.querySelectorAll('#total-rounds-txt2').forEach(el => el.innerText = totalRounds);
-
-            document.querySelectorAll('.current-round-txt').forEach(el => el.innerText = roundIndex + 1);
-            
-            document.querySelectorAll('#current-host-name-txt').forEach(el => el.innerText = data.currentHostName);
-            document.querySelectorAll('#current-host-name-txt2').forEach(el => el.innerText = data.currentHostName);
-            document.getElementById('result-host-name-txt').innerText = data.currentHostName;
-
-            if (data.status === 'waiting') {
-                updateMemberList(data.guests);
-            }
-            else if (data.status === 'host_selecting') {
-                mySelection = [];
-                if (myName === data.currentHostName) {
-                    document.getElementById('q-odai').innerText = currentData.title;
-                    renderOptions('q-options', mySelection, 'q-send-btn');
-                    changeScreen('screen-questioner');
-                } else {
-                    document.getElementById('wait-odai-title').innerText = currentData.title;
-                    document.getElementById('wait-for-host-msg').style.display = 'block';
-                    document.getElementById('action-for-guest').style.display = 'none';
-                    changeScreen('screen-answerer');
-                }
-            }
-            else if (data.status === 'guest_predicting') {
-                if (myName === data.currentHostName) {
-                    showWaitingStatus(data.guests, data.hostSelection, data.currentHostName);
-                } else {
-                    if (data.guests && data.guests[myName] && data.guests[myName].isSubmitted) {
-                        showWaitingStatus(data.guests, null, data.currentHostName);
-                    } else {
-                        document.getElementById('wait-for-host-msg').style.display = 'none';
-                        document.getElementById('action-for-guest').style.display = 'block';
-                        document.getElementById('a-odai').innerText = currentData.title;
-                        mySelection = [];
-                        renderOptions('a-options', mySelection, 'a-send-btn');
-                        changeScreen('screen-answerer');
-                    }
-                }
-            }
-            else if (data.status === 'round_result') {
-                showRoundResult(data);
-            }
-            else if (data.status === 'game_over') {
-                showFinalResult(data.guests);
-            }
-        });
-    }
-
-    function updateMemberList(guests) {
-        let html = "";
-        let count = 0;
-        if (guests) {
-            for (let key in guests) {
-                const label = guests[key].isHostUser ? "👑 " : "👤 ";
-                html += `<span class="member-item">${label}${guests[key].name}</span>`;
-                if(!guests[key].isHostUser) count++;
-            }
-            document.getElementById('host-member-list').innerHTML = html;
-            document.getElementById('guest-member-list').innerHTML = html;
-        }
-        if (myRole === "host") {
-            document.getElementById('start-game-btn').disabled = (count === 0);
-        }
-    }
-
-    function showWaitingStatus(guests, hostSelection, currentHostName) {
-        changeScreen('screen-round-waiting');
-        let html = "";
-        let allDone = true;
-
-        for (let key in guests) {
-            const g = guests[key];
-            if (g.name === currentHostName) {
-                html += `<div class="score-row"><span>🔮 ${g.name} (出題者)</span><span>✅ 完了</span></div>`;
-                continue;
-            }
-            const statusSymbol = g.isSubmitted ? "✅ 完了" : "⏳ 回答中...";
-            html += `<div class="score-row"><span>${g.name}</span><span>${statusSymbol}</span></div>`;
-            if (!g.isSubmitted) allDone = false;
-        }
-        document.getElementById('waiting-member-list').innerHTML = html;
-
-        if (myRole === "host" && allDone && hostSelection) {
-            calculateAllScores(guests, hostSelection, currentHostName);
-        }
-    }
-
-    function renderOptions(containerId, selectionList, buttonId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-        currentData.options.forEach(option => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = option;
-            const index = selectionList.indexOf(option);
-            if (index !== -1) {
-                btn.classList.add('selected');
-                const badge = document.createElement('span');
-                badge.className = 'badge';
-                badge.innerText = index + 1;
-                btn.appendChild(badge);
-            }
-            btn.onclick = () => {
-                const existingIndex = selectionList.indexOf(option);
-                if (existingIndex !== -1) {
-                    selectionList.splice(existingIndex, 1);
-                } else if (selectionList.length < 3) {
-                    selectionList.push(option);
-                }
-                renderOptions(containerId, selectionList, buttonId);
-                document.getElementById(buttonId).disabled = (selectionList.length !== 3);
-            };
-            container.appendChild(btn);
-        });
-    }
-
-    function sendHostAnswers() {
-        update(ref(db, 'rooms/' + roomNum), {
-            status: 'guest_predicting',
-            hostSelection: mySelection
-        });
-    }
-
-    function sendGuestAnswers() {
-        update(ref(db, `rooms/${roomNum}/guests/${myName}`), {
-            selection: mySelection,
-            isSubmitted: true
-        });
-    }
-
-    // 💡 修正ポイント：新・さらに激ゆるの得点計算ロジック
-    function calculateAllScores(guests, hostSelection, currentHostName) {
-        let updates = {};
-        for (let key in guests) {
-            const g = guests[key];
-            const a = g.selection;
-            let pts = 0;
-
-            if (g.name === currentHostName) {
-                updates[`guests/${key}/roundScore`] = 0;
-                updates[`guests/${key}/isSubmitted`] = false;
-                continue;
-            }
-
-            if (!a) continue;
-
-            const isTop2Exact = (hostSelection[0] === a[0] && hostSelection[1] === a[1]);
-            let matchCount = 0;
-            if (hostSelection.includes(a[0])) matchCount++;
-            if (hostSelection.includes(a[1])) matchCount++;
-            if (hostSelection.includes(a[2])) matchCount++;
-
-            if (hostSelection[0] === a[0] && hostSelection[1] === a[1] && hostSelection[2] === a[2]) {
-                pts = 6; // 🥇 サンレンタン
-            } else if (matchCount === 3) {
-                pts = 4; // 🥈 サンレンプク
-            } else if (isTop2Exact) {
-                pts = 3; // 🥉 ニレンタン
-            } else if (matchCount === 2) {
-                pts = 2; // ⭐ ニレンプク（新：どれでも2つ一致で一気に2点！）
-            } else if (matchCount === 1) {
-                pts = 1; // 🌱 イチレンプク（新：どれか1つだけでもかすったら1点！）
-            }
-
-            updates[`guests/${key}/roundScore`] = pts;
-            updates[`guests/${key}/totalScore`] = (g.totalScore || 0) + pts;
-            updates[`guests/${key}/isSubmitted`] = false; 
-        }
-        updates['status'] = 'round_result';
-        update(ref(db, 'rooms/' + roomNum), updates);
-    }
-
-    function showRoundResult(data) {
-        changeScreen('screen-result');
-        const h = data.hostSelection;
-        document.getElementById('q-ans-text').innerHTML = `1位: ${h[0]} ➔ 2位: ${h[1]} ➔ 3位: ${h[2]}`;
-
-        let html = "";
-        for (let key in data.guests) {
-            const g = data.guests[key];
-            const isCurrentHost = g.name === data.currentHostName ? " <small style='color:#94a3b8;'>(出題者)</small>" : "";
-            html += `<div class="score-row">
-                <span><strong>${g.name}</strong>${isCurrentHost} <small style="color:#94a3b8;">(予想: ${g.selection ? g.selection.join('→') : 'なし'})</small></span>
-                <span style="font-weight:bold; color:#ff477e;">+${g.roundScore}点 <small style="color:#64748b;">(計 ${g.totalScore}点)</small></span>
-            </div>`;
-        }
-        document.getElementById('round-scores-list').innerHTML = html;
-
-        if (currentRoundIndex < (totalRounds - 1)) {
-            const nextHostUserIndex = Math.floor((currentRoundIndex + 1) / 3) % memberNamesArray.length;
-            const nextHostName = memberNamesArray[nextHostUserIndex];
-            
-            if ((currentRoundIndex + 1) % 3 === 0) {
-                document.getElementById('next-host-notice').innerText = `🔄 次の問題から、出題者が 【${nextHostName}さん】 に交代します！🌟`;
-            } else {
-                document.getElementById('next-host-notice').innerText = `📢 次の問題（第 ${currentRoundIndex + 2} 問）へ進みます！ 【${data.currentHostName}さん】 の出題が続きます！`;
-            }
-            document.getElementById('next-host-notice').style.display = 'block';
-        } else {
-            document.getElementById('next-host-notice').style.display = 'none';
-        }
-
-        if (myRole === "host") {
-            const nextBtn = document.getElementById('next-round-btn');
-            nextBtn.style.display = 'block';
-            nextBtn.innerText = currentRoundIndex >= (totalRounds - 1) ? "最終結果発表へ！ 🏆" : "次の問題へ進む ➔";
-            document.getElementById('guest-next-wait-text').style.display = 'none';
-        } else {
-            document.getElementById('next-round-btn').style.display = 'none';
-            document.getElementById('guest-next-wait-text').style.display = 'block';
-        }
-    }
-
-    function nextRound() {
-        if (currentRoundIndex >= (totalRounds - 1)) {
-            update(ref(db, 'rooms/' + roomNum), { status: 'game_over' });
-        } else {
-            const nextHostUserIndex = Math.floor((currentRoundIndex + 1) / 3) % memberNamesArray.length;
-            const nextHostName = memberNamesArray[nextHostUserIndex];
-            
-            update(ref(db, 'rooms/' + roomNum), {
-                status: 'host_selecting',
-                currentRound: currentRoundIndex + 1,
-                hostSelection: "",
-                currentHostName: nextHostName
-            });
-        }
-    }
-
-    function showFinalResult(guests) {
-        changeScreen('screen-gameover');
-        let arr = [];
-        for (let key in guests) {
-            arr.push(guests[key]);
-        }
-        arr.sort((a, b) => b.totalScore - a.totalScore);
-
-        let html = "";
-        arr.forEach((g, index) => {
-            const rank = index + 1;
-            const rankClass = rank === 1 ? 'rank-1' : '';
-            const medal = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : "👤";
-            html += `<div class="score-row ${rankClass}">
-                <span>${medal} <strong>${g.name}</strong></span>
-                <span style="font-weight:bold; color:#ff477e;">${g.totalScore} 点</span>
-            </div>`;
-        });
-        document.getElementById('final-rankings-list').innerHTML = html;
-    }
-
-    document.getElementById('btn-show-create').addEventListener('click', showCreateScreen);
-    document.getElementById('btn-create-room').addEventListener('click', createRoom);
-    document.getElementById('btn-show-join').addEventListener('click', showJoinScreen);
-    document.getElementById('btn-join-room').addEventListener('click', joinRoom);
-    document.getElementById('start-game-btn').addEventListener('click', startGame);
-    document.getElementById('q-send-btn').addEventListener('click', sendHostAnswers);
-    document.getElementById('a-send-btn').addEventListener('click', sendGuestAnswers);
-    document.getElementById('next-round-btn').addEventListener('click', nextRound);
-    document.getElementById('btn-reload').addEventListener('click', () => location.reload());
-
+<script>
+    // 💡 賢く現在のサイトURL（En-gamesのURL）を自動で読み取ってQRコードを作成するプログラム
+    window.addEventListener('DOMContentLoaded', () => {
+        const currentUrl = window.location.href;
+        const qrImg = document.getElementById('qr-image');
+        // 無料のQR生成APIを利用して、今開いているURLのQRコードをドッキング！
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+    });
 </script>
+
 </body>
 </html>
